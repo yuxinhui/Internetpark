@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#E3E3E6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="测试"
+        android:textColor="#E03223"
+        android:id="@+id/zsxm_item_name_tv"
+        android:layout_width="100dp"
+        android:layout_height="40dp" />
+</RelativeLayout>
