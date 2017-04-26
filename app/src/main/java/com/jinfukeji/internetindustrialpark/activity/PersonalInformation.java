@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -148,5 +149,15 @@ public class PersonalInformation extends AppCompatActivity{
         sex_et= (EditText) this.findViewById(R.id.personal_sex_et);
         nianling_et= (EditText) this.findViewById(R.id.personal_nianling_et);
         liuyan_et= (EditText) this.findViewById(R.id.personal_liuyan_et);
+    }
+
+    //双击退出程序
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
+            startActivity(new Intent(PersonalInformation.this,ZhaoshangXiangmuActivity.class));
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
