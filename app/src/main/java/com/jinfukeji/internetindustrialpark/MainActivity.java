@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,7 +35,10 @@ import com.jinfukeji.internetindustrialpark.been.MainBeen;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private GridView main_gv;
+    private static final int REFRESH_COMPLETE = 0X110;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private int[] colors=new int[]{android.R.color.holo_blue_bright, android.R.color.holo_green_light
+            , android.R.color.holo_orange_light, android.R.color.holo_red_light};
     private MainAdapter mainAdapter;
     private MainBeen mainBeen=new MainBeen();
     private ArrayList<MainBeen.MessageBean> messageBeen=new ArrayList<>();
@@ -48,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             lunbotu_guide_vp.setCurrentItem(lunbotu_guide_vp.getCurrentItem()+1,true);
             handler.sendEmptyMessageDelayed(0,2000);
+        }
+    };
+
+    //下拉刷新
+    private Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case REFRESH_COMPLETE:
+                    initData();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    break;
+            }
         }
     };
 
@@ -90,7 +107,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        main_gv= (GridView) this.findViewById(R.id.main_gv);
+        mSwipeRefreshLayout= (SwipeRefreshLayout) this.findViewById(R.id.main_swipe_rl);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mHandler.sendEmptyMessageDelayed(REFRESH_COMPLETE,2000);
+            }
+        });
+        mSwipeRefreshLayout.setColorScheme(colors);
+        GridView main_gv = (GridView) this.findViewById(R.id.main_gv);
         mainAdapter=new MainAdapter(messageBeen,MainActivity.this);
         main_gv.setAdapter(mainAdapter);
         main_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

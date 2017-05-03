@@ -37,10 +37,10 @@
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/main_small_icon"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="5dp"
                 android:scaleType="fitXY"
                 android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp" />
             <TextView
                 android:id="@+id/main_been_name"
                 android:layout_gravity="center_vertical"
