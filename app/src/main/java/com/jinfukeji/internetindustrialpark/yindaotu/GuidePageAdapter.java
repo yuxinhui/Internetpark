@@ -35,7 +35,7 @@ public class GuidePageAdapter extends PagerAdapter{
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(viewList.get(position));
+        container.addView(viewList.get(position),0);
         return viewList.get(position);
     }
 
